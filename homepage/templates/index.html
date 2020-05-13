@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en_us">
-    <head>
-    </head>
-    <body>
-        <div>hello world!</div>
-        <div>
-        {% if cheezit != None %}
-            {{ cheezit }}
-        {% else %}
-            bruh put in a GET query for 'dog'
-        {% endif %}
-        </div>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <div>hello world!</div>
+    <div>
+    {% if cheezit != None %}
+        {{ cheezit }}
+    {% else %}
+        bruh put in a GET query for 'dog'
+    {% endif %}
+    </div>
+    <div><a href="/login/">click here to go to the login page</a></div>
+{% endblock %}
