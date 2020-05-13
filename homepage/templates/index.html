@@ -2,12 +2,8 @@
 
 {% block content %}
     <div>hello world!</div>
-    <div>
-    {% if cheezit != None %}
-        {{ cheezit }}
-    {% else %}
-        bruh put in a GET query for 'dog'
+    {% if username %}
+    <div>you are currently logged in as {{username}}</div>
     {% endif %}
-    </div>
     <div><a href="/login/">click here to go to the login page</a></div>
 {% endblock %}
