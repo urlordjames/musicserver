@@ -4,15 +4,13 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from . import forms
 
-# Create your views here.
-
 def index(request):
     return render(request, "index.html", {"username": request.user.get_username()})
 
 @csrf_protect
 def loginpage(request):
     if request.method != "POST":
-        return render(request, "login.html", {"form": forms.LoginForm()})
+        return render(request, "form.html", {"form": forms.LoginForm(), "destination": "/login/", "action": "login"})
     else:
         loginform = forms.LoginForm(request.POST)
         if not loginform.is_valid():
@@ -26,3 +24,8 @@ def loginpage(request):
         else:
             messages.error(request, "authentication failed")
         return redirect("/")
+
+@csrf_protect
+def uploadpage(request):
+    if request.method != "POST":
+        return render(request, "form.html", {"form": forms.SongUpload, "destination": "/upload/", "action": "upload"})

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="/login/" method="POST">
+    <form action="{{ destination }}" method="POST">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="login">
+        <input type="submit" value="{{ action }}">
     </form>
 {% endblock %}
