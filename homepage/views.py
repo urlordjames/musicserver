@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.utils.text import slugify
 from . import forms
 
 def index(request):
@@ -29,3 +30,15 @@ def loginpage(request):
 def uploadpage(request):
     if request.method != "POST":
         return render(request, "form.html", {"form": forms.SongUpload, "destination": "/upload/", "action": "upload"})
+    else:
+        uploadform = forms.SongUpload(request.POST, request.FILES)
+        if not uploadform.is_valid:
+            messages.error(request, "upload form invalid")
+            return redirect("/")
+        #WARNING! POTENTIALLY UNSAFE CODE!!!
+        f = open(request.FILES["songfile"].name, "wb")
+        for chunk in request.FILES["songfile"].chunks():
+            f.write(chunk)
+        f.close()
+        messages.success(request, "song successfully uploaded")
+        return redirect("/")
