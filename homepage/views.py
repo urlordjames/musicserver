@@ -26,6 +26,7 @@ def loginpage(request):
             messages.error(request, "authentication failed")
         return redirect("/")
 
+#TODO: refactor so the upload is in the app I labeled "upload" but then proceeded to not put the upload stuff in because I'm an idiot
 @csrf_protect
 def uploadpage(request):
     if request.method != "POST":
