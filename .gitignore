@@ -130,3 +130,6 @@ dmypy.json
 
 # VS Code settings
 .vscode
+
+# user uploaded files
+songs

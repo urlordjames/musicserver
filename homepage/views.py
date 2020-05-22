@@ -26,20 +26,15 @@ def loginpage(request):
             messages.error(request, "authentication failed")
         return redirect("/")
 
-#TODO: refactor so the upload is in the app I labeled "upload" but then proceeded to not put the upload stuff in because I'm an idiot
 @csrf_protect
 def uploadpage(request):
     if request.method != "POST":
         return render(request, "form.html", {"form": forms.SongUpload, "destination": "/upload/", "action": "upload"})
     else:
         uploadform = forms.SongUpload(request.POST, request.FILES)
-        if not uploadform.is_valid:
-            messages.error(request, "upload form invalid")
+        if uploadform.is_valid:
+            uploadform.save()
+            messages.success(request, "song successfully uploaded")
             return redirect("/")
-        #WARNING! POTENTIALLY UNSAFE CODE!!!
-        f = open(request.FILES["songfile"].name, "wb")
-        for chunk in request.FILES["songfile"].chunks():
-            f.write(chunk)
-        f.close()
-        messages.success(request, "song successfully uploaded")
+        messages.error(request, "upload form invalid")
         return redirect("/")
