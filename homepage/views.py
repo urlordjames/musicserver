@@ -2,18 +2,21 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.utils.text import slugify
-from . import forms
+from .forms import LoginForm, SongUpload
+from .models import Song
 
 def index(request):
     return render(request, "index.html", {"username": request.user.get_username()})
 
+def songs(request):
+    return render(request, "songs.html", {"songs": Song.objects.all()})
+
 @csrf_protect
 def loginpage(request):
     if request.method != "POST":
-        return render(request, "form.html", {"form": forms.LoginForm(), "destination": "/login/", "action": "login"})
+        return render(request, "form.html", {"form": LoginForm(), "destination": "/login/", "action": "login"})
     else:
-        loginform = forms.LoginForm(request.POST)
+        loginform = LoginForm(request.POST)
         if not loginform.is_valid():
             messages.error(request, "login form invalid")
             return redirect("/login/")
@@ -33,9 +36,9 @@ def uploadpage(request):
         messages.error(request, "you are not logged in")
         return redirect("/login/")
     if request.method != "POST":
-        return render(request, "form.html", {"form": forms.SongUpload, "destination": "/upload/", "action": "upload"})
+        return render(request, "form.html", {"form": SongUpload, "destination": "/upload/", "action": "upload"})
     else:
-        uploadform = forms.SongUpload(request.POST, request.FILES)
+        uploadform = SongUpload(request.POST, request.FILES)
         if uploadform.is_valid:
             data = uploadform.save(commit=False)
             data.uploader = request.user
