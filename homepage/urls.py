@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -6,4 +7,4 @@ urlpatterns = [
     path("login/", views.loginpage, name="login"),
     path("upload/", views.uploadpage, name="upload"),
     path("songs/", views.songs, name="songs")
-]
+] + static("/media", document_root="./media")

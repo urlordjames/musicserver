@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
     {% for song in songs %}
         <div>
             <div>{{ song.uploader }}</div>
-            <a href="{% static song.songfile.url %}">{{ song.title }}</a>
+            <a href="/media/{{ song.songfile.url }}">{{ song.title }}</a>
         </div>
     {% endfor %}
 {% endblock %}
