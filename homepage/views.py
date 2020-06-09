@@ -36,10 +36,14 @@ def uploadpage(request):
         messages.error(request, "you are not logged in")
         return redirect("/login/")
     if request.method != "POST":
-        return render(request, "form.html", {"form": SongUpload, "destination": "/upload/", "action": "upload"})
+        return render(request, "form.html", {"form": SongUpload, "destination": "/upload/", "action": "upload", "fileupload": True})
     else:
         uploadform = SongUpload(request.POST, request.FILES)
-        if uploadform.is_valid:
+        if uploadform.is_valid():
+            title = uploadform.cleaned_data["title"]
+            f = open(f"media/temp/{title}", "wb+")
+            for chunk in request.FILES["mediafile"]:
+                f.write(chunk)
             data = uploadform.save(commit=False)
             data.uploader = request.user
             data.save()

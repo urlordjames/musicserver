@@ -4,6 +4,9 @@
     <form action="{{ destination }}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
+        {% if fileupload %}
+        <input type="file" name="mediafile">
+        {% endif %}
         <input type="submit" value="{{ action }}">
     </form>
 {% endblock %}

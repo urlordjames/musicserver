@@ -8,4 +8,4 @@ class LoginForm(forms.Form):
 class SongUpload(forms.ModelForm):
     class Meta:
         model = models.Song
-        fields = ["songfile", "title"]
+        fields = ["title"]
