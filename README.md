@@ -5,11 +5,12 @@ a private music uploading and streaming service in Django
 - [x] user login
 - [x] file upload
 - [x] ffmpeg optimization of music files (https://github.com/aminyazdanpanah/python-ffmpeg-video-streaming)
+- [ ] add media player (https://github.com/video-dev/hls.js/)
 - [ ] test deletetion of orphaned files (https://github.com/ledil/django-orphaned)
 - [ ] test deploy web server on local machine and fix resulting bugs
 
 # deploy checklist
-- [ ] create circleci script which does the following
+- [ ] create CI script which does the following
     - [ ] installs dependancies (https://github.com/ledil/django-orphaned, https://github.com/aminyazdanpanah/python-ffmpeg-video-streaming)
     - [ ] sets the enviornment variable "secret" to a new securely random valid Django secret key
     - [ ] sets up production HTTP server (most likely https://github.com/benoitc/gunicorn)
