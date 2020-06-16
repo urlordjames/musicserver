@@ -4,7 +4,7 @@ a private music uploading and streaming service in Django
 # release feature checklist
 - [x] user login
 - [x] file upload
-- [ ] ffmpeg optimization of music files (https://github.com/aminyazdanpanah/python-ffmpeg-video-streaming)
+- [x] ffmpeg optimization of music files (https://github.com/aminyazdanpanah/python-ffmpeg-video-streaming)
 - [ ] test deletetion of orphaned files (https://github.com/ledil/django-orphaned)
 - [ ] test deploy web server on local machine and fix resulting bugs
 

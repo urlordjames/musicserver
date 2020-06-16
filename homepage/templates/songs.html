@@ -4,7 +4,7 @@
     {% for song in songs %}
         <div>
             <div>{{ song.uploader }}</div>
-            <a href="/media/temp/{{ song.title }}">{{ song.title }}</a>
+            <a href="/media/{{ song.title }}/media.m3u8">{{ song.title }}</a>
         </div>
     {% endfor %}
 {% endblock %}

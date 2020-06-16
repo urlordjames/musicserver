@@ -10,4 +10,4 @@ def isfilesafe(string):
 
 class Song(models.Model):
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=50, null=False, blank=False, validators=[isfilesafe])
+    title = models.CharField(max_length=50, null=False, blank=False, unique=True, validators=[isfilesafe])

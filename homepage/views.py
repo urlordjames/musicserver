@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+import ffmpeg_streaming
+from ffmpeg_streaming import Formats
+import os
 from .forms import LoginForm, SongUpload
 from .models import Song
 
@@ -41,9 +44,16 @@ def uploadpage(request):
         uploadform = SongUpload(request.POST, request.FILES)
         if uploadform.is_valid():
             title = uploadform.cleaned_data["title"]
-            f = open(f"media/temp/{title}", "wb+")
+            templocation = "temp/" + title + ".mp4"
+            f = open(templocation, "wb+")
             for chunk in request.FILES["mediafile"]:
                 f.write(chunk)
+            f.close()
+            video = ffmpeg_streaming.input(templocation)
+            os.makedirs("media/" + title)
+            hls = video.hls(Formats.h264())
+            hls.auto_generate_representations()
+            hls.output("media/" + title + "/" + "media.m3u8")
             data = uploadform.save(commit=False)
             data.uploader = request.user
             data.save()
