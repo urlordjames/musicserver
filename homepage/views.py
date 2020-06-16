@@ -52,6 +52,8 @@ def uploadpage(request):
             video = ffmpeg_streaming.input(templocation)
             os.makedirs("media/" + title)
             hls = video.hls(Formats.h264())
+            #TODO: put key into non-serving directory and add /getkey API
+            hls.encryption("media/" + title + "/key", "/getkey?media=" + title)
             hls.auto_generate_representations()
             hls.output("media/" + title + "/" + "media.m3u8")
             data = uploadform.save(commit=False)
