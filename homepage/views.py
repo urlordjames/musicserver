@@ -63,3 +63,6 @@ def uploadpage(request):
             return redirect("/")
         messages.error(request, "upload form invalid")
         return redirect("/")
+
+def player(request):
+    return render(request, "player.html")

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="warning"></div>
+<video id="video" width="800" controls></video>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+    var id = new URLSearchParams(new URL(window.location.href).search).get("media");
+    var video = document.getElementById("video");
+    if (Hls.isSupported()) {
+        console.log("dog");
+        var hls = new Hls();
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MEDIA_ATTACHED, function() {
+            hls.loadSource("/media/" + id + "/media.m3u8");
+            hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
+                var playpromise = video.play();
+                if (playpromise !== undefined) {
+                    playpromise.then(_ => {console.log("video playing")}).catch(error => {console.log(error);});
+                }
+            });
+        });
+    }
+    else {
+        document.getElementById("warning").innerHTML = "ERROR: Your browser does not support HLS.js.  This is probably due to watching on an Apple device.  The player will attempt to use Apple's native HLS stuff which might result in poor quality.  It's Apple's fault, not mine.";
+        video.src = "/media/" + id + "/media.m3u8";
+    }
+</script>
+{% endblock %}
