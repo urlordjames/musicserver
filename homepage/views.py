@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 from django.contrib import messages
 import ffmpeg_streaming
 from ffmpeg_streaming import Formats
@@ -52,17 +53,33 @@ def uploadpage(request):
             video = ffmpeg_streaming.input(templocation)
             os.makedirs("media/" + title)
             hls = video.hls(Formats.h264())
-            #TODO: put key into non-serving directory and add /getkey API
-            hls.encryption("media/" + title + "/key", "/getkey?media=" + title)
+            os.makedirs("keys/" + title)
+            hls.encryption("keys/" + title + "/key", "/getkey/?media=" + title)
             hls.auto_generate_representations()
             hls.output("media/" + title + "/" + "media.m3u8")
             data = uploadform.save(commit=False)
             data.uploader = request.user
             data.save()
             messages.success(request, "song successfully uploaded")
-            return redirect("/")
+            return redirect("/songs/")
         messages.error(request, "upload form invalid")
         return redirect("/")
 
 def player(request):
     return render(request, "player.html")
+
+def getkey(request):
+    if request.user.is_authenticated:
+        requested = request.GET["media"]
+        media = get_object_or_404(Song, title=requested)
+        if media.uploader == request.user:
+            f = open("keys/" + requested + "/key", "rb")
+            key = f.read()
+            f.close()
+            return HttpResponse(key, content_type="application/octet-stream")
+        else:
+            messages.error(request, "you are authorized to view this media")
+            return redirect("/")
+    else:
+        messages.error(request, "you are not authenticated")
+        return redirect("/login/")
