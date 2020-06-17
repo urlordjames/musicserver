@@ -68,6 +68,7 @@ def uploadpage(request):
 def player(request):
     return render(request, "player.html")
 
+#TODO: test if this has a CSRF vuln because it probably does
 def getkey(request):
     if request.user.is_authenticated:
         requested = request.GET["media"]
