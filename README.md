@@ -6,7 +6,7 @@ a private music uploading and streaming service in Django
 - [x] file upload
 - [x] ffmpeg optimization of music files (https://github.com/aminyazdanpanah/python-ffmpeg-video-streaming)
 - [x] add media player (https://github.com/video-dev/hls.js/)
-- [ ] add decryption key API
+- [x] add decryption key API
 - [ ] test deletetion of orphaned files (https://github.com/ledil/django-orphaned)
 - [ ] test deploy web server on local machine and fix resulting bugs
 
