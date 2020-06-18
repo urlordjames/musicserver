@@ -17,7 +17,7 @@ services:
     musicserver:
         image: "musicserver"
         environment:
-            secret: "jl-7cir&r7zcj-w2)ox$^!j5$j=hj=rdh!euv+a73h5zjt*bri"
+            secret: "jl-7cir&r7zcj-w2)ox$$^!j5$$j=hj=rdh!euv+a73h5zjt*bri"
             dbname: "db"
             dbuser: "musicserver"
             dbpass: "secret"
