@@ -132,6 +132,6 @@ dmypy.json
 .vscode
 
 # user uploaded files
-media
+deployproxy/media
 temp
 keys

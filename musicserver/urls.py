@@ -10,5 +10,5 @@ urlpatterns = [
 ]
 
 if DEBUG:
-    urlpatterns += static("/media", document_root="./media")
-    urlpatterns += static("/static", document_root="./static")
+    urlpatterns += static("/media", document_root="./deployproxy/media")
+    urlpatterns += static("/static", document_root="./deployproxy/static")
