@@ -33,5 +33,9 @@ services:
         #TODO: add proper volumes
         depends_on:
             - db
+
+
+    deployproxy:
+        image: "deployproxy"
         ports:
-            - 8000:8000
+            - 8000:80
