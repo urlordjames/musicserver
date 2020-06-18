@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
@@ -5,7 +6,6 @@ from django.http import HttpResponse
 from django.contrib import messages
 import ffmpeg_streaming
 from ffmpeg_streaming import Formats
-import os
 from .forms import LoginForm, SongUpload
 from .models import Song
 
