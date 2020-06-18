@@ -12,10 +12,10 @@ jobs:
         - name: "build image"
           run: "docker build -t musicserver ."
 
-        - name: "export image"
-          run: "docker save --output musicserver.tar musicserver"
+        #- name: "export image"
+        #  run: "docker save --output musicserver.tar musicserver"
 
-        - uses: "actions/upload-artifact@v2"
-          with:
-                name: "docker image"
-                path: "musicserver.tar"
+        #- uses: "actions/upload-artifact@v2"
+        #  with:
+        #        name: "docker image"
+        #        path: "musicserver.tar"
