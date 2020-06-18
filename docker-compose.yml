@@ -13,6 +13,15 @@ services:
             POSTGRES_USER: "musicserver"
         volumes:
             - db:/var/lib/postgresql/data
+    
+    #ONLY ENABLE WHEN DEBUGGING DO NOT LEAVE EXPOSED!!
+    #adminer:
+    #        image: adminer
+    #        restart: always
+    #        ports:
+    #                - 8080:8080
+    #        depends_on:
+    #                - db
 
     musicserver:
         image: "musicserver"
