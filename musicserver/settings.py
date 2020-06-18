@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 productionkey = os.environ.get("secret")
 
-if not productionkey == None:
-    SECRET_KEY = productionkey
-    DEBUG = False
-else:
+if productionkey is None:
     SECRET_KEY = 'jl-7cir&r7zcj-w2)ox$^!j5$j=hj=rdh!euv+a73h5zjt*bri'
     DEBUG = True
+else:
+    SECRET_KEY = productionkey
+    DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -78,7 +78,14 @@ WSGI_APPLICATION = 'musicserver.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if not productionkey == None:
+if productionkey is None:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -89,14 +96,6 @@ if not productionkey == None:
             'PORT': '5432',
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
