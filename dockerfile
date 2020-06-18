@@ -1,7 +1,9 @@
 FROM python:3.7-slim
 
 WORKDIR /root
-COPY . /root
+COPY start.sh requirements.txt manage.py /root/
+COPY homepage /root/homepage
+COPY musicserver /root/musicserver
 RUN chmod +x start.sh
 RUN pip install -r requirements.txt
 ENTRYPOINT ["./start.sh"]
