@@ -79,8 +79,6 @@ def getkey(request):
             f.close()
             return HttpResponse(key, content_type="application/octet-stream")
         else:
-            messages.error(request, "you are authorized to view this media")
-            return redirect("/")
+            return HttpResponse(status=401)
     else:
-        messages.error(request, "you are not authenticated")
-        return redirect("/login/")
+        return HttpResponse(status=403)
