@@ -1,0 +1,28 @@
+version: "3.8"
+
+volumes:
+    db:
+
+services:
+    db:
+        image: "postgres"
+        restart: always
+        environment:
+            #I hope this is only exposed locally...
+            POSTGRES_PASSWORD: "secret"
+            POSTGRES_USER: "musicserver"
+        volumes:
+            - db:/var/lib/postgresql/data
+
+    musicserver:
+        image: "musicserver"
+        environment:
+            secret: "jl-7cir&r7zcj-w2)ox$^!j5$j=hj=rdh!euv+a73h5zjt*bri"
+            dbname: "db"
+            dbuser: "musicserver"
+            dbpass: "secret"
+        #TODO: add proper volumes
+        depends_on:
+            - db
+        ports:
+            - 8000:8000

@@ -29,7 +29,7 @@ else:
     SECRET_KEY = 'jl-7cir&r7zcj-w2)ox$^!j5$j=hj=rdh!euv+a73h5zjt*bri'
     DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
