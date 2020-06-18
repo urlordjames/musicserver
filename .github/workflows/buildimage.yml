@@ -5,13 +5,17 @@ on: ["push"]
 jobs:
     build:
         runs-on: "ubuntu-latest"
-    steps:
+
+        steps:
         - uses: "actions/checkout@v2"
+
         - name: "build image"
-        run: "docker build -t musicserver ."
+          run: "docker build -t musicserver ."
+
         - name: "export image"
-        run: "docker save --output musicserver.tar musicserver"
+          run: "docker save --output musicserver.tar musicserver"
+
         - uses: "actions/upload-artifact@v2"
-        with:
-            name: "docker image"
-            path: "musicserver.tar"
+          with:
+                name: "docker image"
+                path: "musicserver.tar"
