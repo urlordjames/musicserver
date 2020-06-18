@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -9,4 +8,4 @@ urlpatterns = [
     path("songs/", views.songs, name="songs"),
     path("player/", views.player, name="player"),
     path("getkey/", views.getkey, name="getkey")
-] + static("/media", document_root="./media")
+]
