@@ -1,4 +1,4 @@
 FROM nginx
 
 COPY nginx.conf /etc/nginx/conf.d/musicserver.conf
-COPY staticfiles /etc/staticfiles
+COPY staticfiles /etc/static/static

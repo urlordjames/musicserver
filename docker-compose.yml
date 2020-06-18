@@ -44,4 +44,4 @@ services:
         depends_on:
             - musicserver
         volumes:
-            - ./deployproxy/media:/etc/media
+            - ./deployproxy/media:/etc/static/media
