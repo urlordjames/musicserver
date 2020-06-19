@@ -18,6 +18,13 @@ def delfolder(path):
 class Song(models.Model):
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50, null=False, blank=False, unique=True, validators=[isfilesafe])
+    
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Media"
+        verbose_name_plural = "Media"
 
 # recievers
 
