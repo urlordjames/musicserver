@@ -2,6 +2,7 @@ version: "3.8"
 
 volumes:
     db:
+    keys:
 
 services:
     db:
@@ -30,12 +31,12 @@ services:
             dbname: "db"
             dbuser: "musicserver"
             dbpass: "secret"
-        #TODO: add proper volumes
         depends_on:
             - db
         volumes:
             - ./deployproxy/media:/root/deployproxy/media
             - ./deployproxy/staticfiles:/root/deployproxy/staticfiles
+            - keys:/root/keys
 
 
     deployproxy:
