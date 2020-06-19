@@ -35,7 +35,7 @@ services:
             - db
         volumes:
             - ./deployproxy/media:/root/deployproxy/media
-            - ./deployproxy/staticfiles:/root/deployproxy/static
+            - ./deployproxy/staticfiles:/root/deployproxy/staticfiles
 
 
     deployproxy:
