@@ -59,7 +59,7 @@ def uploadpage(request):
             data.uploader = request.user
             data.save()
             messages.success(request, "song successfully uploaded")
-            return redirect("/songs/")
+            return redirect("/mymedia/")
         messages.error(request, "upload form invalid")
         return redirect("/")
 
