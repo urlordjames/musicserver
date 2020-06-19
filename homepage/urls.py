@@ -5,7 +5,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("login/", views.loginpage, name="login"),
     path("upload/", views.uploadpage, name="upload"),
-    path("songs/", views.songs, name="songs"),
+    path("mymedia/", views.mymedia, name="mymedia"),
     path("player/", views.player, name="player"),
     path("getkey/", views.getkey, name="getkey")
 ]

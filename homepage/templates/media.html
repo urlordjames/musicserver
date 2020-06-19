@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for upload in media %}
+        <div>
+            <div>{{ upload.uploader }}</div>
+            <a href="/player/?media={{ upload.title }}">{{ upload.title }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}
