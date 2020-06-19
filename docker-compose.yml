@@ -9,7 +9,6 @@ services:
         image: "postgres"
         restart: always
         environment:
-            #I hope this is only exposed locally...
             POSTGRES_PASSWORD: "secret"
             POSTGRES_USER: "musicserver"
         volumes:
@@ -27,6 +26,7 @@ services:
     musicserver:
         image: "musicserver"
         environment:
+            #set this secret to a new valid value in production!
             secret: "jl-7cir&r7zcj-w2)ox$$^!j5$$j=hj=rdh!euv+a73h5zjt*bri"
             dbname: "db"
             dbuser: "musicserver"
@@ -37,7 +37,6 @@ services:
             - ./deployproxy/media:/root/deployproxy/media
             - ./deployproxy/staticfiles:/root/deployproxy/staticfiles
             - keys:/root/keys
-
 
     deployproxy:
         image: "deployproxy"
