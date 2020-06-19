@@ -10,3 +10,4 @@ def hlsify(title, templocation):
     hls.encryption("keys/" + title + "/key", "/getkey/?media=" + title)
     hls.auto_generate_representations()
     hls.output("deployproxy/media/" + title + "/" + "media.m3u8")
+    os.remove(templocation)
