@@ -5,7 +5,7 @@ import ffmpeg_streaming
 def hlsify(title, templocation):
     video = ffmpeg_streaming.input(templocation)
     os.makedirs("deployproxy/media/" + title)
-    hls = video.hls(Formats.h264())
+    hls = video.hls(Formats.h264(), hls_time=3)
     os.makedirs("keys/" + title)
     hls.encryption("keys/" + title + "/key", "/getkey/?media=" + title)
     hls.auto_generate_representations()
