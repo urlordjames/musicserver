@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .forms import LoginForm, SongUpload
 from .models import Song
-from .rendervideo import hlsify
+from .videoutils import *
 from threading import Thread
 
 def index(request):
@@ -68,14 +68,13 @@ def player(request):
 
 #TODO: test if this has a CSRF vuln because it probably does
 def getkey(request):
+    requested = request.GET["media"]
+    media = get_object_or_404(Song, title=requested)
+    if media.privacy == "public":
+        return HttpResponse(loadkey(requested), content_type="application/octet-stream")
     if request.user.is_authenticated:
-        requested = request.GET["media"]
-        media = get_object_or_404(Song, title=requested)
         if media.uploader == request.user:
-            f = open("keys/" + requested + "/key", "rb")
-            key = f.read()
-            f.close()
-            return HttpResponse(key, content_type="application/octet-stream")
+            return HttpResponse(loadkey(requested), content_type="application/octet-stream")
         else:
             return HttpResponse(status=401)
     else:

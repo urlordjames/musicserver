@@ -11,3 +11,9 @@ def hlsify(title, templocation):
     hls.auto_generate_representations()
     hls.output("deployproxy/media/" + title + "/" + "media.m3u8")
     os.remove(templocation)
+
+def loadkey(medianame):
+    f = open(os.path.join("keys", medianame, "key"), "rb")
+    key = f.read()
+    f.close()
+    return key
