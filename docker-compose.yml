@@ -35,6 +35,7 @@ services:
             - db
         volumes:
             - ./deployproxy/media:/root/deployproxy/media
+            - ./deployproxy/static:/root/deployproxy/static
 
 
     deployproxy:
@@ -45,3 +46,4 @@ services:
             - musicserver
         volumes:
             - ./deployproxy/media:/etc/static/media
+            - ./deployproxy/static:/etc/static/static
