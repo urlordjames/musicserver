@@ -1,13 +1,12 @@
-import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib import messages
-import ffmpeg_streaming
-from ffmpeg_streaming import Formats
 from .forms import LoginForm, SongUpload
 from .models import Song
+from .rendervideo import hlsify
+from threading import Thread
 
 def index(request):
     return render(request, "index.html", {"username": request.user.get_username()})
@@ -50,13 +49,8 @@ def uploadpage(request):
             for chunk in request.FILES["mediafile"]:
                 f.write(chunk)
             f.close()
-            video = ffmpeg_streaming.input(templocation)
-            os.makedirs("deployproxy/media/" + title)
-            hls = video.hls(Formats.h264())
-            os.makedirs("keys/" + title)
-            hls.encryption("keys/" + title + "/key", "/getkey/?media=" + title)
-            hls.auto_generate_representations()
-            hls.output("deployproxy/media/" + title + "/" + "media.m3u8")
+            t = Thread(target=hlsify, args=(title, templocation))
+            t.start()
             data = uploadform.save(commit=False)
             data.uploader = request.user
             data.save()
