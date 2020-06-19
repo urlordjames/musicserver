@@ -7,12 +7,12 @@ a private music uploading and streaming service in Django
 - [x] ffmpeg optimization of music files (https://github.com/aminyazdanpanah/python-ffmpeg-video-streaming)
 - [x] add media player (https://github.com/video-dev/hls.js/)
 - [x] add decryption key API
-- [ ] test deploy web server on local machine and fix resulting bugs
+- [x] test deploy web server on local machine and fix resulting bugs
 - [ ] write orphaned file deletion tool
 
 # docker image checklist
-- [ ] disable debug mode
-- [ ] set db info (dbname, dbuser, dbpass)
-- [ ] install dependancies
+- [x] disable debug mode
+- [x] set db info (dbname, dbuser, dbpass)
+- [x] install dependancies
 - [ ] set enviornment variable "secret" to random valid value
-- [ ] configure gunicorn (https://github.com/benoitc/gunicorn)
+- [x] configure gunicorn (https://github.com/benoitc/gunicorn)
