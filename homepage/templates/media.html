@@ -2,7 +2,7 @@
 
 {% block content %}
     {% for upload in media %}
-        <div>
+        <div class="container">
             <div>{{ upload.uploader }}</div>
             <a href="/player/?media={{ upload.title }}">{{ upload.title }}</a>
         </div>

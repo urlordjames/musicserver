@@ -1,3 +1,5 @@
+import os
+from threading import Thread
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login
@@ -5,8 +7,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .forms import LoginForm, SongUpload
 from .models import Song
-from .videoutils import *
-from threading import Thread
+from .videoutils import hlsify, loadkey
 
 def index(request):
     return render(request, "index.html", {"username": request.user.get_username()})
@@ -21,7 +22,7 @@ def mymedia(request):
 @csrf_protect
 def loginpage(request):
     if request.method != "POST":
-        return render(request, "form.html", {"form": LoginForm(), "destination": "/login/", "action": "login"})
+        return render(request, "form.html", {"form": LoginForm(), "destination": "/login/", "action": "Login"})
     else:
         loginform = LoginForm(request.POST)
         if not loginform.is_valid():
@@ -43,7 +44,7 @@ def uploadpage(request):
         messages.error(request, "you are not logged in")
         return redirect("/login/")
     if request.method != "POST":
-        return render(request, "form.html", {"form": SongUpload, "destination": "/upload/", "action": "upload", "fileupload": True})
+        return render(request, "form.html", {"form": SongUpload, "destination": "/upload/", "action": "Upload", "fileupload": True})
     else:
         uploadform = SongUpload(request.POST)
         if uploadform.is_valid():

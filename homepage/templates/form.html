@@ -3,10 +3,20 @@
 {% block content %}
     <form action="{{ destination }}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form }}
-        {% if fileupload %}
-        <input type="file" name="mediafile">
-        {% endif %}
-        <input type="submit" value="{{ action }}">
+        <div class="container">
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{field.name}}">{{field.label}}:</label>
+                {{field}}
+            </div>
+            {% endfor %}
+            {% if fileupload %}
+            <div class="form-group">
+                <label for="mediafile">File:</label>
+                <input type="file" name="mediafile">
+            </div>
+            {% endif %}
+            <input type="submit" class="btn btn-primary" value="{{ action }}">
+        </div>
     </form>
 {% endblock %}
