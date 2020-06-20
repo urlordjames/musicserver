@@ -12,4 +12,5 @@ class SongUpload(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(SongUpload, self).__init__(*args, **kwargs)
-        self.fields["title"].widget.attrs.update({"class": "egg"})
+        self.fields["title"].widget.attrs.update({"class": "form-control"})
+        self.fields["privacy"].widget.attrs.update({"class": "form-control"})
