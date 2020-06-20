@@ -5,11 +5,13 @@
     </head>
     <body>
         {% if messages %}
+        <div class="container">
             {% for message in messages %}
-                <div class="jumbotron"{% if message.tags %} class="{{message.tags}}"{% endif %}>
+                <div{% if message.tags %} class="alert alert-{{message.tags}}"{% else %} class="alert alert-info"{% endif %}>
                     {{ message }}
                 </div>
             {% endfor %}
+        </div>
         {% endif %}
         {% block content %}
         {% endblock %}

@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Uploader</th>
+            <th>Media</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for upload in media %}
-        <div class="container">
-            <div>{{ upload.uploader }}</div>
-            <a href="/player/?media={{ upload.title }}">{{ upload.title }}</a>
-        </div>
+        <tr>
+            <td>{{ upload.uploader }}</td>
+            <td><a href="/player/?media={{ upload.title }}">{{ upload.title }}</a></td>
+        </tr>
     {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
