@@ -1,13 +1,14 @@
 import os
-from ffprobe import FFProbe
 import subprocess
+from ffprobe import FFProbe
 from ffmpeg_streaming import Formats
 import ffmpeg_streaming
 
 def getmediainfo(location):
     metadata = FFProbe(location)
     isvideo = False
-    assert len(metadata.streams) >= 1
+    if len(metadata.streams) < 1:
+        return None
     for stream in metadata.streams:
         if stream.is_video():
             isvideo = True
