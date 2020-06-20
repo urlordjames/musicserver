@@ -4,15 +4,15 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Uploader</th>
-            <th>Media</th>
+            <th class="small-text">Uploader</th>
+            <th class="small-text">Media</th>
         </tr>
     </thead>
     <tbody>
     {% for upload in media %}
         <tr>
-            <td>{{ upload.uploader }}</td>
-            <td><a href="/player/?media={{ upload.title }}">{{ upload.title }}</a></td>
+            <td class="small-text">{{ upload.uploader }}</td>
+            <td class="small-text"><a href="/player/?media={{ upload.title }}">{{ upload.title }}</a></td>
         </tr>
     {% endfor %}
     </tbody>

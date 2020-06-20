@@ -1,0 +1,25 @@
+/* mobile */
+@media only screen and (max-device-width : 640px) {
+    .big-text {
+        font-size: 6vw;
+    }
+    .medium-text {
+        font-size: 4vw;
+    }
+    .small-text {
+        font-size: 3vw;
+    }
+}
+
+/* desktop */
+@media only screen and (min-device-width: 640px) {
+    .big-text {
+        font-size: 3vw;
+    }
+    .medium-text {
+        font-size: 2vw;
+    }
+    .small-text {
+        font-size: 1.5vw;
+    }
+}

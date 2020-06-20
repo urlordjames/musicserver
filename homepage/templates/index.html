@@ -3,13 +3,13 @@
 {% block content %}
     <div style="text-align: center">
         <!--I have no idea how well this works on mobile-->
-        <h1 style="font-size: 4vw">media server</h1>
+        <h1 class="big-text">media server</h1>
         {% if username %}
-        <div style="font-size: 2vw">you are currently logged in as {{username}}</div>
-        <div style="font-size: 3vw"><a href="/mymedia/">media list</a></div>
-        <div style="font-size: 3vw"><a href="/upload/">upload new media</a></div>
+        <div class="small-text">you are currently logged in as {{username}}</div>
+        <div class="medium-text"><a href="/mymedia/">media list</a></div>
+        <div class="medium-text"><a href="/upload/">upload new media</a></div>
         {% else %}
-        <div style="font-size: 3vw"><a href="/login/">login</a></div>
+        <div class="medium-text"><a href="/login/">login</a></div>
         {% endif %}
     </div>
 {% endblock %}

@@ -133,5 +133,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = 'deployproxy/staticfiles'
+#this is immensely stupid why does this cause an error, please dix this django devs
+if DEBUG:
+    STATIC_URL = '/nonexistent/'
+else:
+    STATIC_URL = '/static/'
+
+STATIC_ROOT = './deployproxy/staticfiles'
