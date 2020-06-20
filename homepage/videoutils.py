@@ -23,20 +23,23 @@ def hlsify(title, templocation):
         videomedia(title, templocation)
     elif info == "audio":
         audiomedia(title, templocation)
-    os.remove(templocation)
+    else:
+        os.remove(templocation)
 
 def videomedia(title, templocation):
     video = ffmpeg_streaming.input(templocation)
-    os.makedirs("deployproxy/media/" + title)
+    os.makedirs(os.path.join("deployproxy", "media", title))
     hls = video.hls(Formats.h264(), hls_time=3)
     os.makedirs("keys/" + title)
-    hls.encryption("keys/" + title + "/key", "/getkey/?media=" + title)
+    hls.encryption(os.path.join("keys", title, "key"), "/getkey/?media=" + title)
     hls.auto_generate_representations()
-    hls.output("deployproxy/media/" + title + "/" + "media.m3u8")
+    hls.output(os.path.join("deployproxy", "media", title, "media.m3u8"))
     os.remove(templocation)
 
 def audiomedia(title, templocation):
-    print(subprocess.check_output(["ffmpeg", "-version"]))
+    os.makedirs(os.path.join("deployproxy", "media", title))
+    #TODO: add encryption
+    subprocess.run(["ffmpeg", "-i", templocation, "-f", "hls", "-hls_time", "3", "-hls_playlist_type", "event", os.path.join("deployproxy", "media", title, "media.m3u8")])
     os.remove(templocation)
 
 def loadkey(medianame):
