@@ -45,10 +45,10 @@ def uploadpage(request):
     if request.method != "POST":
         return render(request, "form.html", {"form": SongUpload, "destination": "/upload/", "action": "upload", "fileupload": True})
     else:
-        uploadform = SongUpload(request.POST, request.FILES)
+        uploadform = SongUpload(request.POST)
         if uploadform.is_valid():
             title = uploadform.cleaned_data["title"]
-            templocation = "temp/" + title + ".mp4"
+            templocation = os.path.join("temp", title + ".media")
             f = open(templocation, "wb+")
             for chunk in request.FILES["mediafile"]:
                 f.write(chunk)
