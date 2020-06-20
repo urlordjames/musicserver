@@ -1,5 +1,6 @@
 import os
 import subprocess
+import secrets
 from ffprobe import FFProbe
 from ffmpeg_streaming import Formats
 import ffmpeg_streaming
@@ -38,12 +39,20 @@ def videomedia(title, templocation):
 
 def audiomedia(title, templocation):
     os.makedirs(os.path.join("deployproxy", "media", title))
-    #TODO: add encryption
-    subprocess.run(["ffmpeg", "-i", templocation, "-f", "hls", "-hls_time", "3", "-hls_playlist_type", "event", os.path.join("deployproxy", "media", title, "media.m3u8")])
+    keyuri = "/getkey/?media=" + title
+    os.makedirs(os.path.join("keys", title))
+    keypath = os.path.join("keys", title, "key")
+    with open(keypath, "wb") as f:
+        f.write(secrets.token_bytes(16))
+    IV = secrets.token_hex(16)
+    tempinfo = os.path.join("temp", title + ".keyinfo")
+    with open(tempinfo, "w") as f:
+        f.writelines([keyuri + "\n", keypath + "\n", IV])
+    subprocess.run(["ffmpeg", "-i", templocation, "-f", "hls", "-hls_time", "3", "-hls_playlist_type", "event", "-hls_key_info_file", tempinfo, os.path.join("deployproxy", "media", title, "media.m3u8")])
     os.remove(templocation)
+    os.remove(tempinfo)
 
 def loadkey(medianame):
-    f = open(os.path.join("keys", medianame, "key"), "rb")
-    key = f.read()
-    f.close()
+    with open(os.path.join("keys", medianame, "key"), "rb") as f:
+        key = f.read()
     return key
