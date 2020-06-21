@@ -12,9 +12,23 @@
     <body>
         {% if messages %}
             {% for message in messages %}
-                <div{% if message.tags %} class="alert alert-{{message.tags}}"{% else %} class="alert alert-info"{% endif %}>
-                    {{ message }}
-                </div>
+                {% if message.tags == "success" %}
+                    <div class="alert alert-success"}>
+                        {{ message }}
+                    </div>
+                {% elif message.tags == "error" %}
+                    <div class="alert alert-danger"}>
+                        {{ message }}
+                    </div>
+                {% elif message.tags == "warning" %}
+                    <div class="alert alert-warning"}>
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-primary"}>
+                        {{ message }}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
         {% block content %}
