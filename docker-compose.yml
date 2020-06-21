@@ -42,8 +42,10 @@ services:
         image: "deployproxy"
         ports:
             - 8000:80
+            - 8443:443
         depends_on:
             - musicserver
         volumes:
             - ./deployproxy/media:/etc/static/media
             - ./deployproxy/staticfiles:/etc/static/static
+            - ./certs:/etc/certs
