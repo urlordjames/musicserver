@@ -4,7 +4,7 @@ a private music uploading and streaming service in Django
 # stuff to do
 
 ## features
-- [ ] add docker ignore file
+- [x] add docker ignore file
 - [ ] add user-facing config page for media (privacy) and account (logout, password change)
 
 ## security
