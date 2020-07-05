@@ -4,6 +4,7 @@ import secrets
 from ffprobe import FFProbe
 from ffmpeg_streaming import Formats
 import ffmpeg_streaming
+from .models import Song
 
 def getmediainfo(location):
     metadata = FFProbe(location)
@@ -19,13 +20,16 @@ def getmediainfo(location):
         return "audio"
 
 def hlsify(title, templocation):
-    info = getmediainfo(templocation)
-    if info == "video":
-        videomedia(title, templocation)
-    elif info == "audio":
-        audiomedia(title, templocation)
-    else:
-        os.remove(templocation)
+    try:
+        info = getmediainfo(templocation)
+        if info == "video":
+            videomedia(title, templocation)
+        elif info == "audio":
+            audiomedia(title, templocation)
+        else:
+            Song.objects.get(title=title).delete()
+    except:
+        Song.objects.get(title=title).delete()
 
 def videomedia(title, templocation):
     video = ffmpeg_streaming.input(templocation)

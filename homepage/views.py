@@ -61,11 +61,11 @@ def uploadpage(request):
             for chunk in request.FILES["mediafile"]:
                 f.write(chunk)
             f.close()
-            t = Thread(target=hlsify, args=(title, templocation))
-            t.start()
             data = uploadform.save(commit=False)
             data.uploader = request.user
             data.save()
+            t = Thread(target=hlsify, args=(title, templocation))
+            t.start()
             messages.success(request, "song successfully uploaded")
             return redirect("/mymedia/")
         messages.error(request, "upload form invalid")
