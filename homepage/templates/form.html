@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
+{% block title %}{{ action }}{% endblock %}
+
 {% block content %}
     <form action="{{ destination }}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="container">
             {% for field in form %}
             <div class="form-group">
-                <label class="small-text" for="{{field.name}}">{{field.label}}:</label>
+                <label class="small-text" for="{{ field.name }}">{{field.label}}:</label>
                 {{field}}
             </div>
             {% endfor %}
