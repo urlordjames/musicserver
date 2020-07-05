@@ -1,13 +1,19 @@
 import os
 import shutil
+from string import ascii_letters
 from django.db import models
 from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 def isfilesafe(string):
-    if not string.isalpha():
-        raise ValidationError("string is not alphanumeric")
+    illegal = False
+    safechars = ascii_letters + "1234567890 "
+    for char in string:
+        if not char in safechars:
+            illegal = True
+    if illegal:
+        raise ValidationError("string is potentially unsafe")
 
 def delfolder(path):
     if os.path.isdir(path):
