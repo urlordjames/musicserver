@@ -44,11 +44,16 @@ def audiomedia(title, templocation):
     keypath = os.path.join("keys", title, "key")
     with open(keypath, "wb") as f:
         f.write(secrets.token_bytes(16))
-    IV = secrets.token_hex(16)
+    iv = secrets.token_hex(16)
     tempinfo = os.path.join("temp", title + ".keyinfo")
     with open(tempinfo, "w") as f:
-        f.writelines([keyuri + "\n", keypath + "\n", IV])
-    subprocess.run(["ffmpeg", "-i", templocation, "-f", "hls", "-hls_time", "3", "-hls_playlist_type", "event", "-hls_key_info_file", tempinfo, os.path.join("deployproxy", "media", title, "media.m3u8")])
+        f.writelines([keyuri + "\n", keypath + "\n", iv])
+    subprocess.run(["ffmpeg", "-i", templocation,
+                    "-f", "hls",
+                    "-hls_time", "3",
+                    "-hls_playlist_type", "event",
+                    "-hls_key_info_file", tempinfo,
+                    os.path.join("deployproxy", "media", title, "media.m3u8")])
     os.remove(templocation)
     os.remove(tempinfo)
 

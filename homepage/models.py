@@ -18,6 +18,10 @@ def isfilesafe(string):
 def delfolder(path):
     if os.path.isdir(path):
         shutil.rmtree(path)
+    else:
+        print("this is probably an error")
+        print("nonexistent folder requested to be deleted")
+        print(path)
 
 # Create your models here.
 
@@ -28,8 +32,14 @@ class Song(models.Model):
     )
 
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=50, null=False, blank=False, unique=True, validators=[isfilesafe])
-    privacy = models.CharField(max_length=20, choices=privacyoptions, default="private")
+    title = models.CharField(max_length=50,
+                             null=False,
+                             blank=False,
+                             unique=True,
+                             validators=[isfilesafe])
+    privacy = models.CharField(max_length=20,
+                               choices=privacyoptions,
+                               default="private")
     
     def __str__(self):
         return self.title

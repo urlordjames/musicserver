@@ -22,7 +22,10 @@ def mymedia(request):
 @csrf_protect
 def loginpage(request):
     if request.method != "POST":
-        return render(request, "form.html", {"form": LoginForm(), "destination": "/login/", "action": "Login"})
+        return render(request, "form.html", {"form": LoginForm(),
+                                             "destination": "/login/",
+                                             "action": "Login",
+                                             "title": "Login"})
     else:
         loginform = LoginForm(request.POST)
         if not loginform.is_valid():
@@ -44,7 +47,11 @@ def uploadpage(request):
         messages.error(request, "you are not logged in")
         return redirect("/login/")
     if request.method != "POST":
-        return render(request, "form.html", {"form": SongUpload, "destination": "/upload/", "action": "Upload", "fileupload": True})
+        return render(request, "form.html", {"form": SongUpload,
+                                             "destination": "/upload/",
+                                             "action": "Upload",
+                                             "title": "Upload Media",
+                                             "fileupload": True})
     else:
         uploadform = SongUpload(request.POST)
         if uploadform.is_valid():
