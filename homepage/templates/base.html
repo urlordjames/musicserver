@@ -13,19 +13,19 @@
         {% if messages %}
             {% for message in messages %}
                 {% if message.tags == "success" %}
-                    <div class="alert alert-success"}>
+                    <div class="alert alert-success small-text"}>
                         {{ message }}
                     </div>
                 {% elif message.tags == "error" %}
-                    <div class="alert alert-danger"}>
+                    <div class="alert alert-danger small-text"}>
                         {{ message }}
                     </div>
                 {% elif message.tags == "warning" %}
-                    <div class="alert alert-warning"}>
+                    <div class="alert alert-warning small-text"}>
                         {{ message }}
                     </div>
                 {% else %}
-                    <div class="alert alert-primary"}>
+                    <div class="alert alert-primary small-text"}>
                         {{ message }}
                     </div>
                 {% endif %}
