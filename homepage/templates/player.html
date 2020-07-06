@@ -19,7 +19,7 @@
     else {
         var warndiv = document.getElementById("warning")
         warndiv.classList.add("alert", "alert-warning")
-        warndiv.innerHTML = "ERROR: Your browser does not support HLS.js.  This is probably due to watching on an Apple device.  The player will attempt to use Apple's native HLS stuff which might result in poor quality.  It's Apple's fault, not mine.";
+        warndiv.innerHTML = "Your browser does not support HLS.js.  This is probably due to watching on an Apple device.  The player will attempt to use Apple's native HLS stuff which might result in poor quality.  It's Apple's fault, not mine.";
         video.src = "/media/" + id + "/media.m3u8";
     }
 </script>
