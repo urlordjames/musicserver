@@ -74,7 +74,6 @@ def uploadpage(request):
 def player(request):
     return render(request, "player.html")
 
-#TODO: test if this has a CSRF vuln because it probably does
 def getkey(request):
     requested = request.GET["media"]
     media = get_object_or_404(Song, title=requested)
