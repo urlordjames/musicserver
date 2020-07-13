@@ -14,7 +14,7 @@ def index(request):
 
 def mymedia(request):
     if request.user.is_authenticated:
-        return render(request, "media.html", {"media": Song.objects.all().filter(uploader=request.user)})
+        return render(request, "mymedia.html", {"media": Song.objects.all().filter(uploader=request.user)})
     else:
         messages.error(request, "you are not logged in")
         return redirect("/login/")
