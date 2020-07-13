@@ -2,7 +2,7 @@ import os
 from threading import Thread
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib import messages
 from .forms import LoginForm, SongUpload
@@ -43,6 +43,11 @@ def loginpage(request):
         else:
             messages.error(request, "authentication failed")
         return redirect("/login/")
+
+def logoutuser(request):
+    logout(request)
+    messages.success(request, "successfully logged out")
+    return redirect("/")
 
 @csrf_protect
 def uploadpage(request):
