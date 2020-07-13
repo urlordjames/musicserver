@@ -1,0 +1,18 @@
+
+{% extends "table.html" %}
+
+{% block title %}Media List{% endblock %}
+
+{% block thead %}
+<th class="small-text">Uploader</th>
+<th class="small-text">Media</th>
+{% endblock %}
+
+{% block tbody %}
+{% for upload in media %}
+    <tr>
+        <td class="small-text">{{ upload.uploader }}</td>
+        <td class="small-text"><a href="/player/?media={{ upload.title }}">{{ upload.title }}</a></td>
+    </tr>
+{% endfor %}
+{% endblock %}

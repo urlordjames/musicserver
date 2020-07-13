@@ -19,6 +19,9 @@ def mymedia(request):
         messages.error(request, "you are not logged in")
         return redirect("/login/")
 
+def medialist(request):
+    return render(request, "medialist.html", {"media": Song.objects.all().filter(privacy="public")})
+
 @csrf_protect
 def loginpage(request):
     if request.method != "POST":
