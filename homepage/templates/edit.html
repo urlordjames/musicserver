@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Media{% endblock %}
+
+{% block content %}
+    <form action="/edit/?media={{ media.title }}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="form-group">
+                <label class="small-text" for="privacy">Privacy:</label>
+                <select name="privacy" class="form-control" id="privacy">
+                    <option value="private" selected="">Private</option>
+                    <option value="public">Public</option>
+                </select>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Edit">
+        </div>
+    </form>
+    <form action="/edit/?media={{ media.title }}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="delete" value="true">
+        <div class="container">
+            <input type="submit" class="btn btn-danger" value="Delete">
+        </div>
+    </form>
+{% endblock %}

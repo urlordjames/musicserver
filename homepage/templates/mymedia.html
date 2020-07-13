@@ -4,15 +4,17 @@
 {% block title %}Media List{% endblock %}
 
 {% block thead %}
-<th class="small-text">Uploader</th>
 <th class="small-text">Media</th>
+<th class="small-text">Privacy</th>
+<th class="small-text">Edit</th>
 {% endblock %}
 
 {% block tbody %}
 {% for upload in media %}
     <tr>
-        <td class="small-text">{{ upload.uploader }}</td>
         <td class="small-text"><a href="/player/?media={{ upload.title }}">{{ upload.title }}</a></td>
+        <td class="small-text">{{ upload.privacy }}</td>
+        <td class="small-text"><a href="/edit/?media={{ upload.title }}">Edit</a></td>
     </tr>
 {% endfor %}
 {% endblock %}

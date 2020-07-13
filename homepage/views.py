@@ -89,3 +89,28 @@ def getkey(request):
             return HttpResponse(status=401)
     else:
         return HttpResponse(status=403)
+
+@csrf_protect
+def edit(request):
+    if not request.user.is_authenticated:
+        return HttpResponse(status=403)
+    media = get_object_or_404(Song, title=request.GET.get("media"))
+    if not media.uploader == request.user:
+        return HttpResponse(status=401)
+    if request.method == "GET":
+        return render(request, "edit.html", {"media": media})
+    elif request.method == "POST":
+        if request.POST.get("delete") == "true":
+            media.delete()
+            messages.success(request, "deleted successfully")
+            return redirect("/mymedia/")
+        try:
+            newprivacy = request.POST["privacy"]
+        except KeyError:
+            return HttpResponse(status=400)
+        media.privacy = newprivacy
+        media.save()
+        messages.success(request, "edited successfully")
+        return redirect("/mymedia/")
+    else:
+        return HttpResponse(status=405)
