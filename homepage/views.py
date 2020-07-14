@@ -25,25 +25,27 @@ def medialist(request):
 
 @csrf_protect
 def loginpage(request):
-    if request.method != "POST":
+    if request.method == "GET":
         return render(request, "form.html", {"form": LoginForm(),
                                              "destination": "/login/",
                                              "action": "Login",
                                              "title": "Login"})
-    else:
+    elif request.method == "POST":
         loginform = LoginForm(request.POST)
         if not loginform.is_valid():
             messages.error(request, "login form invalid")
             return redirect("/login/")
         formdata = loginform.cleaned_data
         user = authenticate(request, username=formdata["username"], password=formdata["password"])
-        if user != None:
+        if not user is None:
             login(request, user)
             messages.success(request, "you have successfully logged in!")
             return redirect("/")
         else:
             messages.error(request, "authentication failed")
         return redirect("/login/")
+    else:
+        return HttpResponse(status=405)
 
 def logoutuser(request):
     logout(request)
