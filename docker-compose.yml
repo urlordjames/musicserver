@@ -27,8 +27,8 @@ services:
         image: "musicserver"
         build: .
         environment:
-            #set this secret to a new valid value in production!
-            secret: "jl-7cir&r7zcj-w2)ox$$^!j5$$j=hj=rdh!euv+a73h5zjt*bri"
+            #set secret enviornment variable (I recommend https://djecrety.ir/)
+            secret: ${secret}
             dbname: "db"
             dbuser: "musicserver"
             dbpass: "secret"
