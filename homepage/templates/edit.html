@@ -3,6 +3,10 @@
 {% block title %}Edit Media{% endblock %}
 
 {% block content %}
+    <div style="text-align: center">
+        <div class="big-text">Edit Media Settings</div>
+        <div class="small-text">currently editing: {{ media.title }}</div>
+    </div>
     <form action="/edit/?media={{ media.title }}" method="POST">
         {% csrf_token %}
         <div class="container">
