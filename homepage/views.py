@@ -76,16 +76,20 @@ def passwordchange(request):
 
 @csrf_protect
 def uploadpage(request):
-    if not request.user.is_authenticated:
+    user = request.user
+    if not user.is_authenticated:
         messages.error(request, "you are not logged in")
         return redirect("/login/")
-    if request.method != "POST":
+    if request.method == "GET":
         return render(request, "form.html", {"form": SongUpload,
                                              "destination": "/upload/",
                                              "action": "Upload",
                                              "title": "Upload Media",
                                              "fileupload": True})
-    else:
+    elif request.method == "POST":
+        if not user.is_superuser and len(Song.objects.all().filter(uploader=user)) >= 5:
+            messages.error(request, "storage limit exceeded, delete your old media")
+            return redirect("/mymedia/")
         uploadform = SongUpload(request.POST)
         if uploadform.is_valid():
             title = uploadform.cleaned_data["title"]
@@ -95,7 +99,7 @@ def uploadpage(request):
                 f.write(chunk)
             f.close()
             data = uploadform.save(commit=False)
-            data.uploader = request.user
+            data.uploader = user
             data.save()
             t = Thread(target=hlsify, args=(title, templocation))
             t.start()
@@ -103,6 +107,8 @@ def uploadpage(request):
             return redirect("/mymedia/")
         messages.error(request, "upload form invalid")
         return redirect("/")
+    else:
+        return HttpResponse(status=405)
 
 def player(request):
     return render(request, "player.html")
