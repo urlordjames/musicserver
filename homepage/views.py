@@ -3,6 +3,7 @@ from threading import Thread
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.password_validation import validate_password, ValidationError
 from django.http import HttpResponse
 from django.contrib import messages
 from .forms import LoginForm, SongUpload
@@ -48,6 +49,30 @@ def logoutuser(request):
     logout(request)
     messages.success(request, "successfully logged out")
     return redirect("/")
+
+@csrf_protect
+def passwordchange(request):
+    user = request.user
+    if user.is_authenticated:
+        if request.method == "GET":
+            return render(request, "passwordreset.html")
+        elif request.method == "POST":
+            password = request.POST["password"]
+            try:
+                validate_password(password)
+            except ValidationError as errors:
+                for error in errors:
+                    messages.error(request, error)
+                return redirect("/resetpassword/")
+            user.set_password(password)
+            user.save()
+            messages.success(request, "password changed")
+            return redirect("/")  
+        else:
+            return HttpResponse(status=405)
+    else:
+        messages.error(request, "you are not logged in")
+        return redirect("/login/")
 
 @csrf_protect
 def uploadpage(request):

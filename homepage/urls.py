@@ -5,6 +5,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("login/", views.loginpage, name="login"),
     path("logout/", views.logoutuser, name="logout"),
+    path("resetpassword/", views.passwordchange, name="resetpassword"),
     path("upload/", views.uploadpage, name="upload"),
     path("mymedia/", views.mymedia, name="mymedia"),
     path("publicmedia/", views.medialist, name="medialist"),
