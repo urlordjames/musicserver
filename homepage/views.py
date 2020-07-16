@@ -59,6 +59,9 @@ def passwordchange(request):
         if request.method == "GET":
             return render(request, "passwordreset.html")
         elif request.method == "POST":
+            if not user.check_password(request.POST["oldpassword"]):
+                messages.error(request, "old password incorrect")
+                return redirect("/resetpassword/")
             password = request.POST["password"]
             try:
                 validate_password(password)
