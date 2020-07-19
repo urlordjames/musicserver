@@ -121,7 +121,7 @@ def player(request):
 def getkey(request):
     requested = request.GET["media"]
     media = get_object_or_404(Song, title=requested)
-    if media.privacy == "public":
+    if not media.privacy == "private":
         return HttpResponse(loadkey(requested), content_type="application/octet-stream")
     if request.user.is_authenticated:
         if media.uploader == request.user:

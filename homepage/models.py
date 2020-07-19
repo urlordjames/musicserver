@@ -28,6 +28,7 @@ def delfolder(path):
 class Song(models.Model):
     privacyoptions = (
         ("private", "Private"),
+        ("unlisted", "Unlisted"),
         ("public", "Public")
     )
 
