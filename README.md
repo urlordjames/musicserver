@@ -13,4 +13,5 @@ a private music uploading and streaming service in Django
     - set the 301 redirect to the appropriate URL
 - run ```docker-compose build```
 - set enviornment variable ```secret``` to a new Django secret (I recommend https://djecrety.ir/)
+- set enviornment variable ```dbpass``` to a desired postgres password
 - run ```docker-compose up```
