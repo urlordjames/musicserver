@@ -9,7 +9,7 @@ services:
         image: "postgres"
         restart: always
         environment:
-            POSTGRES_PASSWORD: "secret"
+            POSTGRES_PASSWORD: ${dbpass}
             POSTGRES_USER: "musicserver"
         volumes:
             - db:/var/lib/postgresql/data
@@ -31,7 +31,7 @@ services:
             secret: ${secret}
             dbname: "db"
             dbuser: "musicserver"
-            dbpass: "secret"
+            dbpass: ${dbpass}
         depends_on:
             - db
         volumes:
