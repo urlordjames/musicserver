@@ -11,5 +11,6 @@ urlpatterns = [
     path("publicmedia/", views.medialist, name="medialist"),
     path("player/", views.player, name="player"),
     path("getkey/", views.getkey, name="getkey"),
-    path("edit/", views.edit, name="edit")
+    path("edit/", views.edit, name="edit"),
+    path("togglemode/", views.togglemode, name="togglemode")
 ]

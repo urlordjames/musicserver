@@ -4,7 +4,11 @@
 
 {% block content %}
 <div class="small-text" id="error"></div>
+{% if video %}
 <video id="video" height="500" controls playsinline></video>
+{% else %}
+<audio id="video" controls playsinline></audio>
+{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
     var id = new URLSearchParams(new URL(window.location.href).search).get("media");

@@ -116,7 +116,8 @@ def uploadpage(request):
         return HttpResponse(status=405)
 
 def player(request):
-    return render(request, "player.html")
+    video = request.session.get("video", True)
+    return render(request, "player.html", {"video": video})
 
 def getkey(request):
     requested = request.GET["media"]
@@ -155,3 +156,8 @@ def edit(request):
         return redirect("/mymedia/")
     else:
         return HttpResponse(status=405)
+
+def togglemode(request):
+    currentmode = request.session.get("video", True)
+    request.session["video"] = not currentmode
+    return redirect("/")
