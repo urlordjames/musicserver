@@ -1,5 +1,6 @@
 import os
 from threading import Thread
+from tempfile import gettempdir
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
@@ -98,7 +99,7 @@ def uploadpage(request):
         uploadform = SongUpload(request.POST)
         if uploadform.is_valid():
             title = uploadform.cleaned_data["title"]
-            templocation = os.path.join("temp", title + ".media")
+            templocation = os.path.join(gettempdir(), title + ".media")
             f = open(templocation, "wb+")
             for chunk in request.FILES["mediafile"]:
                 f.write(chunk)

@@ -133,6 +133,5 @@ dmypy.json
 
 # user uploaded files
 deployproxy/media
-temp
 keys
 certs
