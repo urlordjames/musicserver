@@ -3,7 +3,7 @@
 {% block title %}Media Player{% endblock %}
 
 {% block content %}
-<div class="small-text" id="warning"></div>
+<div class="small-text" id="error"></div>
 <video id="video" height="500" controls playsinline></video>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
@@ -16,11 +16,13 @@
             hls.loadSource("/media/" + id + "/media.m3u8");
         });
     }
-    else {
-        var warndiv = document.getElementById("warning")
-        warndiv.classList.add("alert", "alert-warning")
-        warndiv.innerHTML = "Your browser does not support HLS.js.  This is probably due to watching on an Apple device.  The player will attempt to use Apple's native HLS stuff which might result in poor quality.  It's Apple's fault, not mine.";
+    else if (video.canPlayType("application/vnd.apple.mpegurl")){
         video.src = "/media/" + id + "/media.m3u8";
+    }
+    else {
+        var warndiv = document.getElementById("error")
+        warndiv.classList.add("alert", "alert-danger")
+        warndiv.innerHTML = "Your browser does not support HLS.js.";
     }
 </script>
 {% endblock %}
