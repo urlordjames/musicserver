@@ -3,22 +3,25 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <form action="{{ destination }}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="container">
-            {% for field in form %}
-            <div class="form-group">
-                <label class="small-text" for="{{ field.name }}">{{field.label}}:</label>
-                {{field}}
-            </div>
-            {% endfor %}
-            {% if fileupload %}
-            <div class="form-group">
-                <label class="small-text" for="mediafile">File:</label>
-                <input type="file" name="mediafile" required>
-            </div>
-            {% endif %}
-            <input type="submit" class="btn btn-primary" value="{{ action }}">
+<div style="text-align: center">
+    <div class="big-text">{{ title }}</div>
+</div>
+<form action="{{ destination }}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="small-text" for="{{ field.name }}">{{field.label}}:</label>
+            {{field}}
         </div>
-    </form>
+        {% endfor %}
+        {% if fileupload %}
+        <div class="mb-3">
+            <label class="small-text" for="mediafile">File:</label>
+            <input type="file" name="mediafile" required>
+        </div>
+        {% endif %}
+        <input type="submit" class="btn btn-primary" value="{{ action }}">
+    </div>
+</form>
 {% endblock %}
