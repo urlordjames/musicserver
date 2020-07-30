@@ -109,7 +109,7 @@ def uploadpage(request):
             data.save()
             t = Thread(target=hlsify, args=(title, templocation))
             t.start()
-            messages.success(request, "song successfully uploaded")
+            messages.success(request, "media successfully uploaded")
             return redirect("/mymedia/")
         messages.error(request, "upload form invalid")
         return redirect("/")

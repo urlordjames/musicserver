@@ -5,23 +5,23 @@
 {% block content %}
 <div class="small-text" id="error"></div>
 {% if video %}
-<video id="video" height="500" controls playsinline></video>
+<video id="player" height="500" controls playsinline></video>
 {% else %}
-<audio id="video" controls playsinline></audio>
+<audio id="player" controls></audio>
 {% endif %}
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
     var id = new URLSearchParams(new URL(window.location.href).search).get("media");
-    var video = document.getElementById("video");
+    var player = document.getElementById("player");
     if (Hls.isSupported()) {
         var hls = new Hls();
-        hls.attachMedia(video);
+        hls.attachMedia(player);
         hls.on(Hls.Events.MEDIA_ATTACHED, function() {
             hls.loadSource("/media/" + id + "/media.m3u8");
         });
     }
-    else if (video.canPlayType("application/vnd.apple.mpegurl")){
-        video.src = "/media/" + id + "/media.m3u8";
+    else if (player.canPlayType("application/vnd.apple.mpegurl")){
+        player.src = "/media/" + id + "/media.m3u8";
     }
     else {
         var warndiv = document.getElementById("error")
