@@ -10,7 +10,7 @@
     <form action="/edit/?media={{ media.title }}" method="POST">
         {% csrf_token %}
         <div class="container">
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="small-text" for="privacy">Privacy:</label>
                 <select name="privacy" class="form-control" id="privacy">
                     <option value="private" selected="">Private</option>
@@ -18,7 +18,9 @@
                     <option value="public">Public</option>
                 </select>
             </div>
-            <input type="submit" class="btn btn-primary" value="Edit">
+            <div class="mb-3">
+                <input type="submit" class="btn btn-primary" value="Edit">
+            </div>
         </div>
     </form>
     <form action="/edit/?media={{ media.title }}" method="POST">
